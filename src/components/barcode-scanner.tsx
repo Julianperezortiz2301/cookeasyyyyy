@@ -13,11 +13,22 @@ export function BarcodeScanner({
   onClose: () => void;
 }) {
   const scannerRef = useRef<import("html5-qrcode").Html5Qrcode | null>(null);
+  const isRunningRef = useRef(false);
   const [status, setStatus] = useState<"starting" | "scanning" | "looking-up" | "error">("starting");
   const [error, setError] = useState("");
 
   useEffect(() => {
     let cancelled = false;
+
+    async function safeStop() {
+      if (!isRunningRef.current || !scannerRef.current) return;
+      isRunningRef.current = false;
+      try {
+        await scannerRef.current.stop();
+      } catch {
+        // scanner may already be stopped/not running — safe to ignore
+      }
+    }
 
     async function start() {
       try {
@@ -44,7 +55,7 @@ export function BarcodeScanner({
             if (cancelled) return;
             cancelled = true;
             setStatus("looking-up");
-            await scanner.stop().catch(() => {});
+            await safeStop();
             await handleBarcode(decodedText);
           },
           () => {
@@ -52,7 +63,14 @@ export function BarcodeScanner({
           }
         );
 
-        if (!cancelled) setStatus("scanning");
+        if (cancelled) {
+          // closed while the camera was still starting up
+          await safeStop();
+          return;
+        }
+
+        isRunningRef.current = true;
+        setStatus("scanning");
       } catch {
         if (!cancelled) {
           setStatus("error");
@@ -84,7 +102,7 @@ export function BarcodeScanner({
 
     return () => {
       cancelled = true;
-      scannerRef.current?.stop().catch(() => {});
+      safeStop();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
