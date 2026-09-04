@@ -8,7 +8,11 @@ export default defineConfig({
   schema: "prisma/schema.prisma",
   engine: "classic",
   datasource: {
-    url: env("DATABASE_URL"),
+    // CLI commands (migrate, db seed, studio) need a direct, non-pooled
+    // connection — Neon's pooled connection doesn't support the advisory
+    // lock Prisma Migrate takes. The running app still uses the pooled
+    // DATABASE_URL declared in prisma/schema.prisma.
+    url: env("DIRECT_URL"),
   },
   migrations: {
     path: "prisma/migrations",

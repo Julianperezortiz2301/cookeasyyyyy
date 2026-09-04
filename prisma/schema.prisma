@@ -1,14 +1,16 @@
 // Prisma schema for CookEasy
-// SQLite in development. Because we use Prisma, moving to PostgreSQL later
-// only requires changing the `provider` + `DATABASE_URL` below.
+// PostgreSQL (works both locally and on Vercel). Thanks to Prisma, swapping
+// providers later (e.g. a different Postgres host) only means changing
+// `DATABASE_URL`.
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
