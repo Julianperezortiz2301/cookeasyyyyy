@@ -1,5 +1,7 @@
 # Manual de usuario — CookEasy
 
+**Sitio en vivo:** https://cookeasyyyyy.vercel.app
+
 ## Cuentas de prueba
 
 | Rol | Email | Contraseña |
@@ -45,15 +47,26 @@ producto real y agregarlo automáticamente. Editá o borrá tus recetas desde **
 
 ### Mi Despensa (`/pantry`)
 Acá llevás el inventario de lo que tenés en tu cocina:
-1. Escaneá un producto o agregalo a mano, con cantidad y fecha de vencimiento (opcional).
-2. Cada ítem muestra una etiqueta: **Fresh** (fresco), **Expiring soon** (se vence pronto, 3 días
-   o menos) o **Expired** (vencido). Podés cambiar la fecha en cualquier momento.
-3. Más abajo, la app te muestra:
+1. Escaneá un producto (esto solo completa el nombre) o escribilo a mano.
+2. **Importante:** antes de tocar "Add to pantry", completá la cantidad y sobre todo la **fecha
+   de vencimiento** — un código de barras es igual para todas las unidades de ese producto en el
+   mundo, así que nunca puede saber cuándo vence el que compraste vos. Por eso esa fecha siempre
+   se pone a mano (la app te lo recuerda con un aviso si la dejás vacía).
+3. Cada ítem muestra una etiqueta: **Fresh** (fresco), **Expiring soon** (se vence pronto, 3 días
+   o menos) o **Expired** (vencido). Podés cambiar la fecha en cualquier momento tocándola en la
+   lista.
+4. Más abajo, la app te muestra:
    - **"Cook these before they expire"**: recetas que usan lo que se te está por vencer.
    - **"Recipes you can make"**: todas las recetas posibles con tu despensa actual, indicando
      qué ingredientes te faltan para cada una.
-4. Si te falta algo, tocá **"Add missing to shopping list"** y se agrega automáticamente a tu
+5. Si te falta algo, tocá **"Add missing to shopping list"** y se agrega automáticamente a tu
    lista de compras.
+
+> **Sobre el escaneo:** no todos los productos se encuentran. La app busca en Open Food Facts,
+> una base de datos pública y gratuita mantenida por la comunidad, mucho más completa para
+> productos europeos que para marcas locales colombianas. Si un código no aparece, tocá **"Close
+> and enter it manually"** y escribilo vos — no es un error de la app, es que ese producto
+> todavía no está cargado en esa base pública.
 
 ### Lista de compras (`/shopping-list`)
 Agregá productos a mano, escaneándolos, o desde la despensa (como se explicó arriba). Marcá el
@@ -98,8 +111,11 @@ usuarios. No se puede borrar un alimento que ya esté usado en alguna receta.
 
 ## Notas importantes
 
-- El **escaneo de código de barras** necesita permiso de cámara y una conexión segura (HTTPS o
-  `localhost`). Si lo abrís por una IP local sin HTTPS, ese botón en particular no va a
-  funcionar — el resto de la app sí.
-- Todo lo demás (buscar, favoritos, despensa manual, lista de compras, crear recetas con foto,
-  panel de admin) funciona en cualquier navegador y dispositivo, con o sin cámara.
+- El **escaneo de código de barras** necesita permiso de cámara y una conexión segura. En el
+  sitio en vivo (`https://cookeasyyyyy.vercel.app`) funciona sin problema en cualquier celular,
+  porque ya tiene HTTPS real.
+- No todos los productos escaneados se van a encontrar (ver la nota en la sección de Despensa)
+  — siempre podés escribir el nombre a mano como alternativa.
+- Las fotos que subís (recetas, avatar) pueden desaparecer si se vuelve a desplegar el sitio —
+  es una limitación conocida de este tipo de hosting, documentada en el README para cuando se
+  quiera resolver de forma definitiva.
