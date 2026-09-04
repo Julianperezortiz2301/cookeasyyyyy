@@ -85,6 +85,11 @@ export function PantryForm() {
             aria-label="Expiration date (optional)"
           />
         </div>
+        {name && !expiresAt && (
+          <p className="text-xs text-orange-600">
+            Tip: set an expiration date above so CookEasy can warn you before it goes bad.
+          </p>
+        )}
         <Button type="submit" disabled={loading || !name.trim()} className="w-full">
           <Plus className="h-4 w-4" /> Add to pantry
         </Button>
@@ -95,7 +100,6 @@ export function PantryForm() {
           onDetected={(detectedName) => {
             setScannerOpen(false);
             setName(detectedName);
-            addToPantry(detectedName);
           }}
           onClose={() => setScannerOpen(false)}
         />

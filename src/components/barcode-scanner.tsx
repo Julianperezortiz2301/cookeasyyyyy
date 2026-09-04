@@ -139,7 +139,16 @@ export function BarcodeScanner({
           <p className="mt-3 text-sm text-gray-500">Point your camera at a product barcode.</p>
         )}
         {status === "error" && (
-          <div className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{error}</div>
+          <div className="mt-3 space-y-2">
+            <div className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{error}</div>
+            <button
+              type="button"
+              onClick={onClose}
+              className="w-full rounded-lg bg-gray-100 px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-200"
+            >
+              Close and enter it manually
+            </button>
+          </div>
         )}
       </div>
     </div>
